@@ -70,19 +70,19 @@ export function swaggerCamelCasePropertiesToSnakeCase(swaggerYaml: string) {
     }
   }
   if (swagger.paths) {
-    Object.keys(swagger.paths).forEach(path => {
-      Object.keys(swagger.paths[path]).forEach(method => {
-        if (swagger.paths[path][method].requestBody) {
-          Object.keys(swagger.paths[path][method].requestBody.content).forEach(contentType => {
-            swagger.paths[path][method].requestBody.content[contentType] = camelCasePropertiesToSnakeCase(swagger.paths[path][method].requestBody.content[contentType])
+    Object.values(swagger.paths).forEach((path: any) => {
+      Object.values(path).forEach((pathSchema: any) => {
+        if (pathSchema.requestBody) {
+          Object.keys(pathSchema.requestBody.content).forEach(contentType => {
+            pathSchema.requestBody.content[contentType] = camelCasePropertiesToSnakeCase(pathSchema.requestBody.content[contentType])
           })
         }
-        if (swagger.paths[path][method].responses) {
-          Object.keys(swagger.paths[path][method].responses).forEach(httpStatusCode => {
-            if (swagger.paths[path][method].responses[httpStatusCode].content) {
-              Object.keys(swagger.paths[path][method].responses[httpStatusCode].content).forEach(contentType => {
-                if (swagger.paths[path][method].responses[httpStatusCode].content[contentType].schema.properties) {
-                  swagger.paths[path][method].responses[httpStatusCode].content[contentType] = camelCasePropertiesToSnakeCase(swagger.paths[path][method].responses[httpStatusCode].content[contentType])
+        if (pathSchema.responses) {
+          Object.values(pathSchema.responses).forEach((httpSchema: any) => {
+            if (httpSchema.content) {
+              Object.keys(httpSchema.content).forEach(contentType => {
+                if (httpSchema.content[contentType].schema.properties) {
+                  httpSchema.content[contentType] = camelCasePropertiesToSnakeCase(httpSchema.content[contentType])
                 }
               })
             }
