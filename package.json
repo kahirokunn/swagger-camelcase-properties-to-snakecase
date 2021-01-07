@@ -37,7 +37,7 @@
     "build:esm": "tsc -p tsconfig.esm.json && chmod +x ./esm/bin/cli.js",
     "cleanup": "rm -rf lib esm",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}' --max-warnings=0",
-    "lint:fix": "npm run prettier && npm run eslint --fix",
+    "lint:fix": "npm run prettier && npx eslint --fix",
     "prepublishOnly": "npm run build",
     "prettier": "prettier '**/*.{js,jsx,ts,tsx,json}' --write",
     "test": "jest"
