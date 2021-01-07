@@ -29,6 +29,6 @@ if (fileOption !== -1) {
   updateFile(absPath).then(() => process.exit(0)).catch(() => process.exit(1))
 } else {
   reader.on('close', () => {
-    console.log(swaggerCamelCasePropertiesToSnakeCase(text.trim()))
+    reader.write(swaggerCamelCasePropertiesToSnakeCase(text.trim()))
   });
 }

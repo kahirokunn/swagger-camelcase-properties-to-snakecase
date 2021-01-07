@@ -58,15 +58,37 @@ function camelCasePropertiesToSnakeCase(obj: any) {
 }
 
 export function swaggerCamelCasePropertiesToSnakeCase(swaggerYaml: string) {
-  const swagger = yaml.load(swaggerYaml) as any
+  let swagger = yaml.load(swaggerYaml) as any
 
   if (swagger && swagger.components && swagger.components.schemas) {
-    return yaml.dump({
+    swagger = {
       ...swagger,
       components: {
         ...swagger.components,
         schemas: camelCasePropertiesToSnakeCase(swagger.components.schemas)
       }
+    }
+  }
+  if (swagger.paths) {
+    Object.keys(swagger.paths).forEach(path => {
+      Object.keys(swagger.paths[path]).forEach(method => {
+        if (swagger.paths[path][method].requestBody) {
+          Object.keys(swagger.paths[path][method].requestBody.content).forEach(contentType => {
+            swagger.paths[path][method].requestBody.content[contentType] = camelCasePropertiesToSnakeCase(swagger.paths[path][method].requestBody.content[contentType])
+          })
+        }
+        if (swagger.paths[path][method].responses) {
+          Object.keys(swagger.paths[path][method].responses).forEach(httpStatusCode => {
+            if (swagger.paths[path][method].responses[httpStatusCode].content) {
+              Object.keys(swagger.paths[path][method].responses[httpStatusCode].content).forEach(contentType => {
+                if (swagger.paths[path][method].responses[httpStatusCode].content[contentType].schema.properties) {
+                  swagger.paths[path][method].responses[httpStatusCode].content[contentType] = camelCasePropertiesToSnakeCase(swagger.paths[path][method].responses[httpStatusCode].content[contentType])
+                }
+              })
+            }
+          })
+        }
+      })
     })
   }
   return yaml.dump(swagger)

@@ -1,3 +1,10 @@
+info:
+  title: test
+  version: 0.0.1
+  license:
+    name: MIT
+  contact: {}
+openapi: 3.0.0
 components:
   examples: {}
   headers: {}
@@ -7,7 +14,7 @@ components:
   schemas:
     TestResponse:
       properties:
-        _test_upper_camel:
+        test_upper_camel:
           type: string
         test_lower_camel:
           type: string
@@ -74,3 +81,92 @@ components:
               Mainly this could contain a 'profile' or 'describedby'
               link. These both describe a schema for the format
         type: object
+paths:
+  /hoge:
+    get:
+      operationId: Hoge
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestResponse'
+  /fuga:
+    post:
+      operationId: Fuga
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                test_upper_camel:
+                  type: string
+                test_lower_camel:
+                  type: string
+                _embedded:
+                  properties:
+                    test_nested_property:
+                      properties:
+                        _links:
+                          properties:
+                            self:
+                              $ref: '#/components/schemas/HalLink'
+                          required:
+                            - self
+                          type: object
+                        first_name_kana:
+                          type: string
+                foo:
+                  type: string
+                bar:
+                  type: integer
+                baz:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: ok
+  /piyo:
+    post:
+      operationId: Piyo
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestResponse'
+  /foo:
+    post:
+      operationId: Foo
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _embedded:
+                    properties:
+                      test_nested_property:
+                        properties:
+                          _embedded:
+                            properties:
+                              test_nested_property2:
+                                type: string
+                          _links:
+                            properties:
+                              self:
+                                $ref: '#/components/schemas/HalLink'
+                            required:
+                              - self
+                            type: object
+                          first_name_kana:
+                            type: string
+                  profile:
+                    $ref: '#/components/schemas/TestResponse'
+                  action:
+                    $ref: '#/components/schemas/TestResponse'

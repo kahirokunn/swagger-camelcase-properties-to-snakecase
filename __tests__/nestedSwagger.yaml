@@ -1,3 +1,10 @@
+info:
+  title: test
+  version: 0.0.1
+  license:
+    name: MIT
+  contact: {}
+openapi: 3.0.0
 components:
   examples: {}
   headers: {}
@@ -63,3 +70,86 @@ components:
             type: object
             description: "Relevant links to the format.\n\nMainly this could contain a 'profile' or 'describedby'\nlink. These both describe a schema for the format"
         type: object
+paths:
+  /hoge:
+    get:
+      operationId: Hoge
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestResponse'
+  /fuga:
+    post:
+      operationId: Fuga
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                TestUpperCamel:
+                  type: string
+                testLowerCamel:
+                  type: string
+                _embedded:
+                  properties:
+                    testNestedProperty:
+                      properties:
+                        _links:
+                          properties: {self: {$ref: '#/components/schemas/HalLink'}}
+                          required: [self]
+                          type: object
+                        firstNameKana:
+                          type: string
+                foo:
+                  type: string
+                bar:
+                  type: integer
+                baz: # ファイル
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: ok
+  /piyo:
+    post:
+      operationId: Piyo
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestResponse'
+  /foo:
+    post:
+      operationId: Foo
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _embedded:
+                    properties:
+                      testNestedProperty:
+                        properties:
+                          _embedded:
+                            properties:
+                              TestNestedProperty2:
+                                type: string
+                          _links:
+                            properties: {self: {$ref: '#/components/schemas/HalLink'}}
+                            required: [self]
+                            type: object
+                          firstNameKana:
+                            type: string
+                  profile:
+                    $ref: '#/components/schemas/TestResponse'
+                  action:
+                    $ref: '#/components/schemas/TestResponse'
