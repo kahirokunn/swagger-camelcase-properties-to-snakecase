@@ -3,11 +3,11 @@ import * as yaml from 'js-yaml';
 function snakecase(str: string) {
   let result = ''
   for (let i = 0; i < str.length; i++) {
-    if (!/([A-Z])/.test(str[i])) {
+    if (!/^([A-Z])$/.test(str[i])) {
       result += str[i]
       continue
     }
-    if (/([a-z\d])/.test(str[i - 1])) {
+    if (/^([a-z])$/.test(str[i - 1]) || /^\d$/.test(str[i - 1])) {
       result += '_'
     }
     result += str[i].toLowerCase()
