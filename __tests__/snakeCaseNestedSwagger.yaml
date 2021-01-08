@@ -92,6 +92,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TestResponse'
+      parameters:
+        - in: query
+          name: camel_case
+          required: false
+          schema:
+            format: double
+            type: number
   /fuga:
     post:
       operationId: Fuga

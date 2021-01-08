@@ -23,7 +23,7 @@ components:
             testNestedProperty:
               properties:
                 _links:
-                  properties: {self: {$ref: '#/components/schemas/HalLink'}}
+                  properties: { self: { $ref: '#/components/schemas/HalLink' } }
                   required: [self]
                   type: object
                 firstNameKana:
@@ -47,7 +47,7 @@ components:
           description: 'Human readable title for the link'
         hreflang:
           type: string
-          description: 'Language of the target resource, such as ''en-CA''.'
+          description: "Language of the target resource, such as 'en-CA'."
         hints:
           $ref: '#/components/schemas/LinkHints'
           description: 'Link hints, as defined in draft-nottingham-link-hint'
@@ -81,6 +81,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TestResponse'
+      parameters:
+        - in: query
+          name: camelCase
+          required: false
+          schema:
+            format: double
+            type: number
   /fuga:
     post:
       operationId: Fuga
@@ -99,7 +106,8 @@ paths:
                     testNestedProperty:
                       properties:
                         _links:
-                          properties: {self: {$ref: '#/components/schemas/HalLink'}}
+                          properties:
+                            { self: { $ref: '#/components/schemas/HalLink' } }
                           required: [self]
                           type: object
                         firstNameKana:
@@ -112,7 +120,7 @@ paths:
                   type: string
                   format: binary
       responses:
-        "200":
+        '200':
           description: ok
   /piyo:
     post:
@@ -144,7 +152,8 @@ paths:
                               TestNestedProperty2:
                                 type: string
                           _links:
-                            properties: {self: {$ref: '#/components/schemas/HalLink'}}
+                            properties:
+                              { self: { $ref: '#/components/schemas/HalLink' } }
                             required: [self]
                             type: object
                           firstNameKana:
