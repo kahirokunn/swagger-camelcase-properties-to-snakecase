@@ -1,6 +1,6 @@
 {
   "name": "swagger-camelcase-properties-to-snakecase",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "swagger camelcase properties to snakecase",
   "keywords": [
     "typescript",
@@ -23,18 +23,18 @@
   },
   "license": "MIT",
   "author": "kahirokunn",
-  "bin": "lib/bin/cli.js",
   "main": "lib/index.js",
   "module": "esm/index.js",
   "types": "lib/index.d.js",
+  "bin": "lib/bin/scamel2snake.js",
   "files": [
     "lib",
     "esm"
   ],
   "scripts": {
     "build": "npm run cleanup && npm run build:cjs && npm run build:esm",
-    "build:cjs": "tsc -p tsconfig.cjs.json && chmod +x ./lib/bin/cli.js",
-    "build:esm": "tsc -p tsconfig.esm.json && chmod +x ./esm/bin/cli.js",
+    "build:cjs": "tsc -p tsconfig.cjs.json && chmod +x ./lib/bin/scamel2snake.js",
+    "build:esm": "tsc -p tsconfig.esm.json && chmod +x ./esm/bin/scamel2snake.js",
     "cleanup": "rm -rf lib esm",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}' --max-warnings=0",
     "lint:fix": "npm run prettier && npx eslint --fix",
@@ -62,6 +62,10 @@
       "sort-package-json"
     ]
   },
+  "dependencies": {
+    "commander": "^6.2.1",
+    "js-yaml": "^4.0.0"
+  },
   "devDependencies": {
     "@babel/core": "7.12.10",
     "@babel/preset-env": "7.12.11",
@@ -88,9 +92,5 @@
     "ts-node": "9.1.1",
     "type-fest": "0.20.2",
     "typescript": "4.1.3"
-  },
-  "dependencies": {
-    "commander": "^6.2.1",
-    "js-yaml": "^4.0.0"
   }
 }

@@ -1,26 +1,30 @@
 #!/usr/bin/env node
 
 import * as path from 'path';
-import { readFile, writeFile } from '../util/file';
-import { swaggerCamelCasePropertiesToSnakeCase } from '../';
+import { readFileSync, readFile, writeFile } from '../util/file';
+import { swaggerCamelCasePropertiesToSnakeCase } from '..';
 import program from 'commander';
+import * as readline from 'readline';
 
-// tslint:disable-next-line
-const meta = require('../../package.json');
+const meta = JSON.parse(
+  readFileSync(path.resolve(__dirname, '../../package.json')).toString(),
+);
 
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
 
 program
   .version(meta.version)
-  .usage('</path/to/some-swagger.yaml>')
   .usage(
-    'cat /path/to/some-swagger.yaml | npx swagger-camelcase-properties-to-snakecase',
+    `
+$ npx swagger-camelcase-properties-to-snakecase /path/to/some-swagger.yaml
+or
+$ cat /path/to/some-swagger.yaml | npx swagger-camelcase-properties-to-snakecase`,
   )
   .parse(process.argv);
 
 let text = '';
-var reader = require('readline').createInterface({
+const reader = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
