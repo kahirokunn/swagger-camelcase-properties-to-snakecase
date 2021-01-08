@@ -1,6 +1,6 @@
 {
   "name": "swagger-camelcase-properties-to-snakecase",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "swagger camelcase properties to snakecase",
   "keywords": [
     "typescript",

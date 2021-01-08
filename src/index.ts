@@ -94,6 +94,11 @@ export function swaggerCamelCasePropertiesToSnakeCase(swaggerYaml: string) {
             );
           });
         }
+        if (pathSchema.parameters) {
+          pathSchema.parameters.forEach((param: any) => {
+            param.name = snakecase(param.name);
+          });
+        }
         if (pathSchema.responses) {
           Object.values(pathSchema.responses).forEach((httpSchema: any) => {
             if (httpSchema.content) {
