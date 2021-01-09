@@ -47,6 +47,6 @@ if (swaggerPath) {
     .catch(() => process.exit(1));
 } else {
   reader.on('close', () => {
-    reader.write(swaggerCamelCasePropertiesToSnakeCase(text.trim()));
+    console.log(swaggerCamelCasePropertiesToSnakeCase(text.trim()));
   });
 }
