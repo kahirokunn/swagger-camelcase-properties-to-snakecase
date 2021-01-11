@@ -71,7 +71,7 @@
     "@babel/preset-env": "7.12.11",
     "@babel/preset-typescript": "7.12.7",
     "@types/commander": "2.12.2",
-    "@types/jest": "26.0.19",
+    "@types/jest": "26.0.20",
     "@types/js-yaml": "4.0.0",
     "@types/node": "14.14.20",
     "@typescript-eslint/eslint-plugin": "4.12.0",
