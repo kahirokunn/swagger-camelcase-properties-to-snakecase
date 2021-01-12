@@ -33,6 +33,11 @@ export function swaggerCamelCasePropertiesToSnakeCase(swaggerYaml: string) {
   // best is: `jp.apply(swagger, '$..properties.*~', snakecase)`
   // but package does not support ~ query.
   jp.apply(swagger, '$..properties', renameKeys(snakecase));
+  jp.apply(
+    swagger,
+    '$.paths',
+    renameKeys((path) => path.replace(/{(.*?)}/g, snakecase)),
+  );
   jp.apply(swagger, '$..parameters[*].name', snakecase);
   jp.apply(swagger, '$..required[*]', snakecase);
   return yaml.dump(swagger);
