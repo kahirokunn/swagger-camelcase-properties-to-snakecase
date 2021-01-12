@@ -132,6 +132,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TestResponse'
+  /users/{userId}:
+    get:
+      operationId: GetUser
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestResponse'
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
   /foo:
     post:
       operationId: Foo
