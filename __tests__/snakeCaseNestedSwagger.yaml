@@ -12,27 +12,6 @@ components:
   requestBodies: {}
   responses: {}
   schemas:
-    TestResponse:
-      properties:
-        test_upper_camel:
-          type: string
-        test_lower_camel:
-          type: string
-        _embedded:
-          properties:
-            test_nested_property:
-              properties:
-                _links:
-                  properties:
-                    self:
-                      $ref: '#/components/schemas/HalLink'
-                  required:
-                    - self
-                  type: object
-                first_name_kana:
-                  type: string
-          required:
-            - test_nested_property
     HalLink:
       description: A single HAL link
       properties:
@@ -81,24 +60,60 @@ components:
               Mainly this could contain a 'profile' or 'describedby'
               link. These both describe a schema for the format
         type: object
+    TestResponse:
+      properties:
+        test_upper_camel:
+          type: string
+        test_lower_camel:
+          type: string
+        _embedded:
+          properties:
+            test_nested_property:
+              properties:
+                _links:
+                  properties:
+                    self:
+                      $ref: '#/components/schemas/HalLink'
+                  required:
+                    - self
+                  type: object
+                first_name_kana:
+                  type: string
+          required:
+            - test_nested_property
 paths:
-  /hoge:
-    get:
-      operationId: Hoge
+  /foo:
+    post:
+      operationId: Foo
       responses:
         '200':
           description: Ok
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TestResponse'
-      parameters:
-        - in: query
-          name: camel_case
-          required: false
-          schema:
-            format: double
-            type: number
+                type: object
+                properties:
+                  _embedded:
+                    properties:
+                      test_nested_property:
+                        properties:
+                          _embedded:
+                            properties:
+                              test_nested_property2:
+                                type: string
+                          _links:
+                            properties:
+                              self:
+                                $ref: '#/components/schemas/HalLink'
+                            required:
+                              - self
+                            type: object
+                          first_name_kana:
+                            type: string
+                  profile:
+                    $ref: '#/components/schemas/TestResponse'
+                  action:
+                    $ref: '#/components/schemas/TestResponse'
   /fuga:
     post:
       operationId: Fuga
@@ -135,6 +150,23 @@ paths:
       responses:
         '200':
           description: ok
+  /hoge:
+    get:
+      operationId: Hoge
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestResponse'
+      parameters:
+        - in: query
+          name: camel_case
+          required: false
+          schema:
+            format: double
+            type: number
   /piyo:
     post:
       operationId: Piyo
@@ -161,35 +193,3 @@ paths:
           required: true
           schema:
             type: string
-  /foo:
-    post:
-      operationId: Foo
-      responses:
-        '200':
-          description: Ok
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  _embedded:
-                    properties:
-                      test_nested_property:
-                        properties:
-                          _embedded:
-                            properties:
-                              test_nested_property2:
-                                type: string
-                          _links:
-                            properties:
-                              self:
-                                $ref: '#/components/schemas/HalLink'
-                            required:
-                              - self
-                            type: object
-                          first_name_kana:
-                            type: string
-                  profile:
-                    $ref: '#/components/schemas/TestResponse'
-                  action:
-                    $ref: '#/components/schemas/TestResponse'

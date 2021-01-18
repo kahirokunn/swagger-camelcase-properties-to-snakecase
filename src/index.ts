@@ -27,8 +27,20 @@ function renameKeys<
     );
 }
 
+function sortProperties<T extends Record<string, unknown>>(obj: T): T {
+  return Object.keys(obj)
+    .sort()
+    .reduce((acc, key) => ({ ...acc, [key]: obj[key] }), {} as T);
+}
+
 export function swaggerCamelCasePropertiesToSnakeCase(swaggerYaml: string) {
-  const swagger = yaml.load(swaggerYaml);
+  const swagger: any = yaml.load(swaggerYaml);
+  if (swagger && swagger.components && swagger.components.schemas) {
+    swagger.components.schemas = sortProperties(swagger.components.schemas);
+  }
+  if (swagger && swagger.paths) {
+    swagger.paths = sortProperties(swagger.paths);
+  }
 
   // best is: `jp.apply(swagger, '$..properties.*~', snakecase)`
   // but package does not support ~ query.
