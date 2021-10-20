@@ -72,7 +72,7 @@
     "@babel/preset-env": "7.12.13",
     "@babel/preset-typescript": "7.12.13",
     "@types/commander": "2.12.2",
-    "@types/jest": "26.0.20",
+    "@types/jest": "26.0.24",
     "@types/js-yaml": "4.0.0",
     "@types/jsonpath": "0.2.0",
     "@types/node": "14.14.24",
