@@ -73,7 +73,7 @@
     "@babel/preset-typescript": "7.12.13",
     "@types/commander": "2.12.2",
     "@types/jest": "26.0.20",
-    "@types/js-yaml": "4.0.0",
+    "@types/js-yaml": "4.0.5",
     "@types/jsonpath": "0.2.0",
     "@types/node": "14.14.24",
     "@typescript-eslint/eslint-plugin": "4.14.2",
